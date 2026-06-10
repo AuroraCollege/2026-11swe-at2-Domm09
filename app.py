@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from wumpus import HuntTheWumpus
+from hangman import Hangman
 wumpus_game = HuntTheWumpus()
 
 app = Flask(__name__)
@@ -15,6 +16,9 @@ def wumpus():
     else:
         message = wumpus_game.new_game()
     return render_template('wumpus.html', message=message, game=wumpus_game)
+@app.route('/Hangman', methods=[] )
+def hangman():
+    return render_template('HangMan.html')
 
 if __name__ == "__main__":
     app.run()

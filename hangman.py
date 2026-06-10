@@ -1,0 +1,159 @@
+import random
+Fruit_word_list = ('Blackberry', 'Blueberry', 'Cranberry', 'Raspberry', 'Strawberry', 'Lychee', 'Mulberries', 'pineapple','apple','grape','gooseberry','lemon','lime','orange','watermelon','Cantaloupe','dragonfruit')
+
+#dictionary that makes the hangman drawing, 0-6 is how many incorrect guesses we've made
+hangman_drawing = {0: (
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |            ',
+                       ' |            ',
+                       ' |            ',
+                       ' |            ',
+                       ' |___________ '),
+
+                    
+                   1: ( 
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |        O    ',
+                       ' |            ',
+                       ' |            ',
+                       ' |            ',
+                       ' |___________ '),
+                   2: ( 
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |        O    ',
+                       ' |        |    ',
+                       ' |            ',
+                       ' |            ',
+                       ' |___________ '),
+                   3: ( 
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |        O    ',
+                       ' |       /|    ',
+                       ' |            ',
+                       ' |            ',
+                       ' |___________ '),
+                   4: ( 
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |        O   ',
+                       ' |       /|\\ ',
+                       ' |            ',
+                       ' |            ',
+                       ' |___________ '),
+                   5: ( 
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |        O   ',
+                       ' |       /|\\ ',
+                       ' |       /    ',
+                       ' |            ',
+                       ' |___________ '),
+                   6: ( 
+                       '  ________    ',
+                       ' |        |   ',
+                       ' |        O   ',
+                       ' |       /|\\ ',
+                       ' |       / \\  ',
+                       ' |            ',
+                       ' |___________ ')}
+#initialzing my hangman class, with its attributes
+class Hangman:
+    def __init__(self, word_list, drawings):
+        self.word_list = word_list
+        self.Hangman_drawing = drawings
+        self.answer = random.choice(self.word_list)
+        self.wrong_guesses = 0
+        self.guessed_letters = []
+       
+        self.hint = []
+        for letter in self.answers:
+            self.hint.append('_')
+
+#This is what the player sees when they start the game
+    def display_man(self):
+        print('====================')
+        print(self.Hangman_drawing[self.wrong_guesses])
+        print('====================')
+
+#This makes the UI for the secret word, look more pretty
+    def display_hint(self):
+        for char in self.hint:
+            print(char, end=' ')
+        print()
+
+    
+#this shows the answer at the end in a pretty way, as welll
+    def display_answer(self):
+        for char in self.hint:
+            print(char, end=' ')
+        print()
+
+#this is the main logic of the game :D  
+    def play(self):
+        is_running = True
+#this starts the game and asks the user for a letter to begin
+        while is_running:
+            self.display_man()
+            self.display_hint()
+            guess = input('Enter a letter: ').lower()
+#This verification procces stops the user from inputing a number or a word
+            if len(guess) != 1 or not guess.isalpha():
+                print(' You can only guess with letters and one at a time, try again!')
+                continue 
+#this lets the user know that they have used the same letter more than once
+            if guess in self.guessed_letters:
+                print(f'{guess} has already been guessed, try a different letter!')
+                continue
+#this keeps track of the users guesses
+            self.guessed_letters.append(guess)
+#this is swapping the underscore for the letter if its the correct one
+            if guess in self.answer:
+                position = 0
+                #looping through each letter in the randomly chosen secret word, and swaps the underscore for the letter, if they got it right
+                for letter in self.answer:
+                    if letter == guess:
+                        self.hint[position] = guess
+
+                    position = position + 1
+            else:
+                self.wrong_guesses += 1
+#this is what is shown when you have beaten the game
+            has_won = True
+            for char in self.hint:
+                if char == '_':
+                    has won = False
+
+
+            if has_won == True:
+                self.display_man()
+                self.display_answer()
+                print("Well done, You've won!")
+                is_running = False
+                continue
+#this is what happens when you lose the game
+            if self.wrong_guess >= 6:
+                self.display_man()
+                self.display_answer()
+                print('HAHAH LOLLING YOU LOSE!')
+                is_running = False
+
+
+medium_word_list = ('Barbecue', 'Bolognese', 'Brownie', 'Bruschetta', 'Casserole', 'Cheeseburger', 'Chowder', 'Croissant', 'Doughnut', 'Enchilada', 'Guacamole', 'Hummus', 'Lasagna', 'Macaroni', 'Mayonnaise', 'Nuggets', 'Omelette', 'Pretzels', 'Sandwich', 'Spaghetti')
+
+class MediumHangman(Hangman):
+     def __init__(self, word_list, drawings):
+         super().__init__(word_list, drawings)
+         self.medium_word_list = medium_word_list
+
+     def display_medium(self):
+         print('Welcome to level 2 (medium difficulty) Good luck!')
+   
+
+if __name__ == '__main__':
+     game = Hangman(Fruit_word_list, hangman_drawing)
+     game.play()
+        
