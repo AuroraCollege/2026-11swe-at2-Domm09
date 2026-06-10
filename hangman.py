@@ -70,7 +70,7 @@ class Hangman:
         self.guessed_letters = []
        
         self.hint = []
-        for letter in self.answers:
+        for letter in self.answer:
             self.hint.append('_')
 
 #This is what the player sees when they start the game
@@ -125,7 +125,7 @@ class Hangman:
             has_won = True
             for char in self.hint:
                 if char == '_':
-                    has won = False
+                    has_won = False
 
 
             if has_won == True:
