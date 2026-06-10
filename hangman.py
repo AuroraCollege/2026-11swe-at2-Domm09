@@ -1,8 +1,10 @@
 import random
-Fruit_word_list = ('Blackberry', 'Blueberry', 'Cranberry', 'Raspberry', 'Strawberry', 'Lychee', 'Mulberries', 'pineapple','apple','grape','gooseberry','lemon','lime','orange','watermelon','Cantaloupe','dragonfruit')
-
+def Fruit_word_list():
+    Fruit_word_list = ('Blackberry', 'Blueberry', 'Cranberry', 'Raspberry', 'Strawberry', 'Lychee', 'Mulberries', 'pineapple','apple','grape','gooseberry','lemon','lime','orange','watermelon','Cantaloupe','dragonfruit')
+    return Fruit_word_list
 #dictionary that makes the hangman drawing, 0-6 is how many incorrect guesses we've made
-hangman_drawing = {0: (
+def hangman_drawing(): 
+    hangman_drawing = {0: (
                        '  ________    ',
                        ' |        |   ',
                        ' |            ',
@@ -60,24 +62,32 @@ hangman_drawing = {0: (
                        ' |       / \\  ',
                        ' |            ',
                        ' |___________ ')}
+    return hangman_drawing
 #initialzing my hangman class, with its attributes
 class Hangman:
-    def __init__(self, word_list, drawings):
-        self.word_list = word_list
+    def __init__(self, Fruit_word_list, drawings):
+        self.Fruit_word_list = Fruit_word_list
         self.Hangman_drawing = drawings
-        self.answer = random.choice(self.word_list)
+        self.answer = random.choice(self.Fruit_word_list)
         self.wrong_guesses = 0
         self.guessed_letters = []
+        self.welcome_message = 'Welcome to level 1'
+        
        
         self.hint = []
         for letter in self.answer:
             self.hint.append('_')
 
+    def whatever(self):
+        return self.welcome_message 
+
 #This is what the player sees when they start the game
     def display_man(self):
-        print('====================')
-        print(self.Hangman_drawing[self.wrong_guesses])
-        print('====================')
+        display_man = {'====================',
+                f'{self.Hangman_drawing[self.wrong_guesses]}',
+                '===================='}
+        
+        return display_man
 
 #This makes the UI for the secret word, look more pretty
     def display_hint(self):
@@ -144,13 +154,15 @@ class Hangman:
 
 medium_word_list = ('Barbecue', 'Bolognese', 'Brownie', 'Bruschetta', 'Casserole', 'Cheeseburger', 'Chowder', 'Croissant', 'Doughnut', 'Enchilada', 'Guacamole', 'Hummus', 'Lasagna', 'Macaroni', 'Mayonnaise', 'Nuggets', 'Omelette', 'Pretzels', 'Sandwich', 'Spaghetti')
 
+
 class MediumHangman(Hangman):
      def __init__(self, word_list, drawings):
          super().__init__(word_list, drawings)
          self.medium_word_list = medium_word_list
+         self.welcome_message = 'Welcome to level 2 (medium difficulty) Good luck!'
+         return self.welcome_message
 
-     def display_medium(self):
-         print('Welcome to level 2 (medium difficulty) Good luck!')
+   
    
 
 if __name__ == '__main__':
