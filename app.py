@@ -16,7 +16,7 @@ def wumpus():
     else:
         message = wumpus_game.new_game()
     return render_template('wumpus.html', message=message, game=wumpus_game)
-@app.route('/Hangman', methods=[] )
+@app.route('/Hangman', methods=['GET', 'POST'] )
 def hangman():
     return render_template('HangMan.html')
 
