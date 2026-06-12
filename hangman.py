@@ -1,8 +1,9 @@
 import random
+from typing import Self
 def Fruit_word_list():
     Fruit_word_list = ('Blackberry', 'Blueberry', 'Cranberry', 'Raspberry', 'Strawberry', 'Lychee', 'Mulberries', 'pineapple','apple','grape','gooseberry','lemon','lime','orange','watermelon','Cantaloupe','dragonfruit')
     return Fruit_word_list
-#dictionary that makes the hangman drawing, 0-6 is how many incorrect guesses we've made
+'''dictionary that makes the hangman drawing, 0-6 is how many incorrect guesses we've made'''
 def hangman_drawing(): 
     hangman_drawing = {0: (
                        '  ________    ',
@@ -63,7 +64,7 @@ def hangman_drawing():
                        ' |            ',
                        ' |___________ ')}
     return hangman_drawing
-#initialzing my hangman class, with its attributes
+
 class Hangman:
     def __init__(self, Fruit_word_list, drawings):
         self.Fruit_word_list = Fruit_word_list
@@ -81,7 +82,7 @@ class Hangman:
     def whatever(self):
         return self.welcome_message 
 
-#This is what the player sees when they start the game
+    '''This is what the player sees when they start the game'''
     def display_man(self):
         display_man = {'====================',
                 f'{self.Hangman_drawing[self.wrong_guesses]}',
@@ -89,48 +90,51 @@ class Hangman:
         
         return display_man
 
-#This makes the UI for the secret word, look more pretty
+    '''This makes the UI for the secret word, look more pretty'''
     def display_hint(self):
         for char in self.hint:
             print(char, end=' ')
         print()
 
     
-#this shows the answer at the end in a pretty way, as welll
+    '''this shows the answer at the end in a pretty way, as welll'''
     def display_answer(self):
         for char in self.hint:
             print(char, end=' ')
         print()
 
-#this is the main logic of the game :D  
+    '''this is the main logic of the game :D'''  
     def play(self):
-        is_running = True
-#this starts the game and asks the user for a letter to begin
-        while is_running:
-            self.display_man()
-            self.display_hint()
+        def is_running():
+             is_running = True
+       
+        
+    '''this starts the game and asks the user for a letter to begin'''
+    while is_running():
+            Self.display_man()
+            Self.display_hint()
             guess = input('Enter a letter: ').lower()
-#This verification procces stops the user from inputing a number or a word
+            '''This verification procces stops the user from inputing a number or a word'''
             if len(guess) != 1 or not guess.isalpha():
                 print(' You can only guess with letters and one at a time, try again!')
                 continue 
-#this lets the user know that they have used the same letter more than once
-            if guess in self.guessed_letters:
+            '''this lets the user know that they have used the same letter more than once'''
+            if guess in Self.guessed_letters:
                 print(f'{guess} has already been guessed, try a different letter!')
                 continue
-#this keeps track of the users guesses
-            self.guessed_letters.append(guess)
-#this is swapping the underscore for the letter if its the correct one
-            if guess in self.answer:
+            '''this keeps track of the users guesses'''
+            Self.guessed_letters.append(guess)
+            '''this is swapping the underscore for the letter if its the correct one'''
+            if guess in Self.answer:
                 position = 0
                 #looping through each letter in the randomly chosen secret word, and swaps the underscore for the letter, if they got it right
                 for letter in self.answer:
                     if letter == guess:
-                        self.hint[position] = guess
+                        Self.hint[position] = guess
 
                     position = position + 1
             else:
-                self.wrong_guesses += 1
+                Self.wrong_guesses += 1
 #this is what is shown when you have beaten the game
             has_won = True
             for char in self.hint:
