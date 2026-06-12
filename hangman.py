@@ -69,10 +69,10 @@ class Hangman:
     def __init__(self, Fruit_word_list, drawings):
         self.Fruit_word_list = Fruit_word_list
         self.Hangman_drawing = drawings
-        self.answer = random.choice(self.Fruit_word_list)
-        self.wrong_guesses = 0
-        self.guessed_letters = []
-        self.welcome_message = 'Welcome to level 1'
+        self.__answer = random.choice(self.Fruit_word_list)
+        self.__wrong_guesses = 0
+        self.__guessed_letters = []
+        self.__welcome_message = 'Welcome to level 1'
         
        
         self.hint = []
@@ -80,19 +80,19 @@ class Hangman:
             self.hint.append('_')
 
     def whatever(self):
-        return self.welcome_message 
+        return self.__welcome_message 
 
     '''This is what the player sees when they start the game'''
     def display_man(self):
         display_man = {'====================',
-                f'{self.Hangman_drawing[self.wrong_guesses]}',
+                f'{self.Hangman_drawing[self.__wrong_guesses]}',
                 '===================='}
         
         return display_man
 
     '''This makes the UI for the secret word, look more pretty'''
     def display_hint(self):
-        for char in self.hint:
+        for char in self.__hint:
             print(char, end=' ')
         print()
 
@@ -123,18 +123,18 @@ class Hangman:
                 print(f'{guess} has already been guessed, try a different letter!')
                 continue
             '''this keeps track of the users guesses'''
-            Self.guessed_letters.append(guess)
+            Self.__guessed_letters.append(guess)
             '''this is swapping the underscore for the letter if its the correct one'''
             if guess in Self.answer:
                 position = 0
                 #looping through each letter in the randomly chosen secret word, and swaps the underscore for the letter, if they got it right
                 for letter in self.answer:
                     if letter == guess:
-                        Self.hint[position] = guess
+                        Self.__hint[position] = guess
 
                     position = position + 1
             else:
-                Self.wrong_guesses += 1
+                Self.__wrong_guesses += 1
 #this is what is shown when you have beaten the game
             has_won = True
             for char in self.hint:
@@ -149,7 +149,7 @@ class Hangman:
                 is_running = False
                 continue
 #this is what happens when you lose the game
-            if self.wrong_guess >= 6:
+            if self.__wrong_guess >= 6:
                 self.display_man()
                 self.display_answer()
                 print('HAHAH LOLLING YOU LOSE!')
